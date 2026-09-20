@@ -2,6 +2,4 @@
 .DS_Store
 personal_manager.db
 system_logs.log
-utils/____pycache__/
-db_manager/__pycache__/
-view/__pycache__/
+**/____pycache__/
