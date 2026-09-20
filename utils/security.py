@@ -5,9 +5,7 @@ import base64
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
-from utils.logger import db_logger
 
-@db_logger
 def hash_password(password : str) -> str :
     '''Хэш пароля перед записью в бд'''
     try :
@@ -18,7 +16,6 @@ def hash_password(password : str) -> str :
     except Exception as e:
         raise e
 
-@db_logger
 def check_password(plain_password : str, hashed_password : str) -> bool :
     '''Проверка совпадения пароля с хэшем из базы'''
     return bcrypt.checkpw(
@@ -44,7 +41,6 @@ def generate_crypto_key(master_password : str) -> bytes :
     )
     return base64.urlsafe_b64encode(kdf.derive(password_bytes))
 
-@db_logger
 def encrypt_text(plain_text : str, master_password : str) -> str :
     '''Функция шифрует любой текст'''
     if not plain_text :
@@ -56,7 +52,6 @@ def encrypt_text(plain_text : str, master_password : str) -> str :
     except Exception as e :
         raise e
 
-@db_logger
 def decrypt_text(cipher_text : str,master_password : str) -> str :
     '''Расшифровываем строку обратно в текст'''
     if not cipher_text :

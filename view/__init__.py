@@ -5,4 +5,5 @@ from view.tab1_interface import operation_tab1
 from view.tab2_interface import operation_tab2
 from view.tab3_interface import operation_tab3
 from view.tab4_interface import operation_tab4
+from view.tab0_interface import operation_tab0
 from view.tab5_interface import operation_tab5

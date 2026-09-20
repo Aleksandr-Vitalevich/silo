@@ -1,4 +1,5 @@
 from utils.security import hash_password,check_password,generate_secure_password,generate_crypto_key,decrypt_text,encrypt_text
-from utils.logger import db_logger
+from utils.ai_manager import send_message_to_ai,check_ollama_status
 from utils.retry import retry_on_lock
+from utils.logger import db_logger
 from utils.input_cleaner import clean_inputs

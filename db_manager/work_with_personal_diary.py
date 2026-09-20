@@ -45,3 +45,18 @@ def show_data_to_diary() :
         return res
     except sqlite3.Error as e :
             raise e
+
+
+@db_logger
+@retry_on_lock
+def show_data_to_diary_user_choise(number) :
+    '''Функция возвращает записи из базы количество записей выбирает пользователь'''
+    try :
+        with sqlite3.connect(DB_PATH) as connection :
+            cursor = connection.cursor()
+            show_query = "SELECT text_diary FROM personal_diary ORDER BY created_at DESC LIMIT ?"
+            cursor.execute(show_query,(number,))
+            res = cursor.fetchall()
+        return res if res else []
+    except sqlite3.Error as e :
+            raise e

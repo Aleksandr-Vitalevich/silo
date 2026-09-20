@@ -26,7 +26,7 @@ def main_operation_function() :
             st.error("Ошибка не удалось инициилизировать бд")
             st.stop()
     st.set_page_config(
-        page_title="Personal Manager",
+        page_title="Silo",
         layout="wide"
         )
 
