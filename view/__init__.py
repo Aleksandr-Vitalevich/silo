@@ -7,3 +7,4 @@ from view.tab3_interface import operation_tab3
 from view.tab4_interface import operation_tab4
 from view.tab0_interface import operation_tab0
 from view.tab5_interface import operation_tab5
+from view.tab6_interface import operation_tab6

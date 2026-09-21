@@ -5,17 +5,6 @@ import streamlit as st
 
 def main_operation_function() :
     '''Основная функция программы'''
-    st.markdown(
-        """
-        <style>
-            #MainMenu {visibility: hidden;}
-            header {visibility: hidden;}
-            footer {visibility: hidden;}
-            .stAppDeployButton {display: none !important;}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
     import os
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     db_file_path = os.path.join(BASE_DIR, "personal_manager.db")
@@ -27,7 +16,8 @@ def main_operation_function() :
             st.stop()
     st.set_page_config(
         page_title="Silo",
-        layout="wide"
+        layout="wide",
+        initial_sidebar_state="expanded"
         )
 
     if "authorization_user" not in st.session_state :

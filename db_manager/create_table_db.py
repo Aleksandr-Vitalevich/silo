@@ -34,6 +34,16 @@ def create_table() :
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                         )
                 ''')
+                cursor.execute('''
+                        CREATE TABLE IF NOT EXISTS calendar_tasks (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        task_date TEXT NOT NULL,
+                        title TEXT NOT NULL,
+                        description TEXT,
+                        is_completed INTEGER DEFAULT 0,
+                        priority TEXT DEFAULT "Medium",
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+                ''')
                 return True
     except sqlite3.Error as e :
         raise e

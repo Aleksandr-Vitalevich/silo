@@ -3,3 +3,4 @@
 personal_manager.db
 system_logs.log
 **/____pycache__/
+*.pyc

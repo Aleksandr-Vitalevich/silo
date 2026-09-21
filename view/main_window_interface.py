@@ -1,39 +1,46 @@
-from view.tab1_interface import operation_tab1
-from view.tab2_interface import operation_tab2
-from view.tab3_interface import operation_tab3
-from view.tab4_interface import operation_tab4
-from view.tab0_interface import operation_tab0
-from view.tab5_interface import operation_tab5
 import streamlit as st
-
 
 def main_interface() :
     '''Основная функция управления интерфейсом'''
-    st.title("Silo")
-    st.write("---")
-        
-    tab0,tab1,tab2,tab3,tab4,tab5 = st.tabs(["Выход",
+    with st.sidebar :
+        st.title("Silo")
+        st.markdown("---")
+    
+        user_choice = st.radio("Выбор Меню",["Выход",
                                              "Данные",
                                              "Дневник",
                                              "Управление данными",
                                              "Управление дневником",
-                                             "Ассистент Silo"])
+                                             "Ассистент Silo",
+                                             "Календарь и Заметки"],
+                                index=1)
+        st.markdown("---")
+    
 
-    with tab0 :
+    if user_choice == "Выход" :
+        from view.tab0_interface import operation_tab0
         operation_tab0()
 
-    with tab1 :
+    elif user_choice == "Данные":
+        from view.tab1_interface import operation_tab1
         operation_tab1()
 
-    with tab2 :
+    elif user_choice == "Дневник":
+        from view.tab2_interface import operation_tab2
         operation_tab2()
 
-    with tab3 :
+    elif user_choice == "Управление данными":
+        from view.tab3_interface import operation_tab3
         operation_tab3()
 
-    with tab4 :
+    elif user_choice == "Управление дневником":
+        from view.tab4_interface import operation_tab4
         operation_tab4()
 
-    with tab5 :
+    elif user_choice == "Ассистент Silo":
+        from view.tab5_interface import operation_tab5
         operation_tab5()
 
+    elif user_choice == "Календарь и Заметки":
+        from view.tab6_interface import operation_tab6
+        operation_tab6()
