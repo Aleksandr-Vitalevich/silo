@@ -6,7 +6,6 @@ def clean_inputs(func) :
     def wrapper(*args,**kwargs) :
         '''Функция обертка'''
         try :
-            res = func(*args,**kwargs) 
             cleaned_args = tuple(arg.strip() if isinstance(arg,str) else arg for arg in args)
             cleaned_kwargs = {}
             for key,value in kwargs.items() :
