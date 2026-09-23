@@ -1,4 +1,5 @@
 streamlit
 bcrypt
 cryptography
-folium streamlit-folium
+folium
+streamlit-folium
