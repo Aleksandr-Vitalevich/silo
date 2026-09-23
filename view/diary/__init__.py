@@ -1,0 +1,3 @@
+from view.diary.diary_tab1_interface import operation_tab1
+from view.diary.diary_tab2_interface import operation_tab2
+from view.diary.diary_interface import main_diary_interface

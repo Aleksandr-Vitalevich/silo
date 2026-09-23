@@ -3,15 +3,15 @@ import json
 from utils.logger import db_logger
 from utils.retry import retry_on_lock
 
-@db_logger
-@retry_on_lock
 def check_ollama_status() :
     '''Функция отправляет запрос к ии ollama'''
     try :
-        response = requests.get("http://localhost:11434",timeout=2)
-        return True if response else False
-    except Exception as e :
-        raise e
+        response = requests.get("http://localhost:11434",timeout=1)
+        return True if response.status_code == 200 else False
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) :
+        return False
+    except Exception :
+        raise False
     
 @db_logger
 @retry_on_lock

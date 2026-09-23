@@ -1,0 +1,3 @@
+from view.safe.safe_tab1_interface import operation_tab1
+from view.safe.safe_tab2_interface import operation_tab2
+from view.safe.safe_interface import main_safe_interface

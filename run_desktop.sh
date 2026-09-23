@@ -1,6 +1,7 @@
 #!/bin/bash
 # Автоматически определяем текущую папку проекта (работает на флешках и в любых директориях)
-cd "$(dirname "$0")"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE}" )" && pwd )"
+cd "$SCRIPT_DIR"
 # 🌟 МАКСИМАЛЬНАЯ ОЧИСТКА: Находим PID процесса, который держит порт 9999, и жестко убиваем его (kill -9)
 echo "🧹 Проверяем и освобождаем порт 9999..."
 PID=$(lsof -t -i:9999)
@@ -47,8 +48,9 @@ fi
 
 # 🚀 2. ЗАПУСК СЕРВЕРА STREAMLIT
 # Запускаем чистый сервер текущей папки на уникальном порту 9999 в фоновом режиме
-.venv/bin/streamlit run main_operation.py --server.headless true --server.port 9999 &
-sleep 1.5
+"$SCRIPT_DIR/.venv/bin/python" -m streamlit run main_operation.py --server.headless true --server.port 9999 &
+#.venv/bin/streamlit run main_operation.py --server.headless true --server.port 9999 &
+#sleep 1.5
 
 URL="http://localhost:9999"
 

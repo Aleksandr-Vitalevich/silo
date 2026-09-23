@@ -1,7 +1,7 @@
 import streamlit as st
 
 def operation_tab0() :
-    '''Функция отвечает за логику работу пятой вкладки'''
+    '''Функция отвечает за логику работу нулевой вкладки'''
     st.subheader("Выход")
 
     if st.button("Выход",use_container_width=True) :

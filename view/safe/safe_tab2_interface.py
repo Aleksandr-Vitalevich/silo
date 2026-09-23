@@ -3,12 +3,12 @@ from db_manager import show_data,delete_data,update_data,get_data_by_id
 import pandas as pd
 from time import sleep
 from utils.security import decrypt_text
-def operation_tab3() :
+def operation_tab2() :
     '''Функция отвечает за логику работу третьей вкладки'''
     st.subheader("Управление данными")
-    sub_tab_3_1,sub_tab_3_2,sub_tab_3_3 = st.tabs(["Получить записи","Изменить запись","Удалить запись"])
+    sub_tab_2_1,sub_tab_2_2,sub_tab_2_3 = st.tabs(["Получить записи","Изменить запись","Удалить запись"])
 
-    with sub_tab_3_1 :
+    with sub_tab_2_1 :
         st.subheader('Меню мои записи')
         try :
             my_files = show_data()
@@ -36,7 +36,7 @@ def operation_tab3() :
             st.error('Ошибка расшифровки или загрузки данных')
 
 
-    with sub_tab_3_2 :
+    with sub_tab_2_2 :
         st.subheader('Меню изменить запись')
         if "edit_form_version" not in st.session_state :
             st.session_state.edit_form_version = 0
@@ -83,7 +83,7 @@ def operation_tab3() :
         except Exception :
             st.error("Ошибка расшифровки или загрузки данных")
 
-    with sub_tab_3_3 :
+    with sub_tab_2_3 :
         st.subheader("Меню удаления записи")
         user_input = st.number_input('Введите id записи для удаления',step=1,min_value=1,key="delete_safe_record_id_input")
         if st.button("Удалить запись",use_container_width=True,key="delete_button_click") :

@@ -2,16 +2,16 @@ import streamlit as st
 from db_manager import add_data_to_diary
 from time import sleep
 from utils.security import encrypt_text
-def operation_tab2() :
-    '''Функция отвечает за логику работу второй вкладки'''
+def operation_tab1() :
+    '''Функция отвечает за логику работу первой вкладки'''
     st.subheader("Мой дневник")
     if "form_version_diary" not in st.session_state :
             st.session_state.form_version_diary = 0
     if "diary_text_value" not in st.session_state :
             st.session_state.diary_text_value = ""
-    sub_tab_2_1,sub_tab_2_2 = st.tabs(["Ввод текста в ручную","Загрузка из файла"])
+    sub_tab_1_1,sub_tab_1_2 = st.tabs(["Ввод текста в ручную","Загрузка из файла"])
 
-    with sub_tab_2_1 :
+    with sub_tab_1_1 :
         with st.form(key=f"form_input_user_data_tab2_v{st.session_state.form_version_diary}") :
             user_text = st.text_area("Поделитесь вашими мыслями",value=st.session_state.diary_text_value)
             submit_diary = st.form_submit_button("Сохранить текст",use_container_width=True)
@@ -32,7 +32,7 @@ def operation_tab2() :
                         except Exception :
                               st.error('Ошибка не удалось зашифровать или сохранить запись')
                               
-    with sub_tab_2_2 :
+    with sub_tab_1_2 :
             st.markdown("***Вставьте ваш файл***")
             uploaded_file = st.file_uploader(
                 "Вставьте файл txt",
