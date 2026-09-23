@@ -10,7 +10,7 @@ def operation_tab5() :
     if "ai_talk" not in st.session_state:
         st.session_state.ai_talk = []
 
-    sub_tab5_1 = st.tabs(['Беседа'])
+    sub_tab5_1, = st.tabs(['Беседа'])
 
     with sub_tab5_1 :
         st.subheader("Управление агентом")
