@@ -5,10 +5,10 @@ from utils.retry import retry_on_lock
 
 @db_logger
 @retry_on_lock
-def add_data_to_diary(text) :
+def add_data_to_diary(text,db_path=DB_PATH) :
     '''Функция принимает текст и записывает их в базу'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             value = (text,)
             add_query = f"INSERT OR IGNORE INTO personal_diary (text_diary) VALUES (?) "
@@ -19,10 +19,10 @@ def add_data_to_diary(text) :
 
 @db_logger
 @retry_on_lock
-def delete_data_to_diary(id) :
+def delete_data_to_diary(id,db_path=DB_PATH) :
     '''Функция принимает id записи и проводит удаление записи'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             delete_query = "DELETE FROM personal_diary WHERE id = ?"
             delete_value = (id,)
@@ -34,10 +34,10 @@ def delete_data_to_diary(id) :
 
 @db_logger
 @retry_on_lock
-def show_data_to_diary() :
+def show_data_to_diary(db_path=DB_PATH) :
     '''Функция возвращает все записи из базы'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             show_query = "SELECT * FROM personal_diary ORDER BY created_at DESC"
             cursor.execute(show_query)
@@ -49,10 +49,10 @@ def show_data_to_diary() :
 
 @db_logger
 @retry_on_lock
-def show_data_to_diary_user_choise(number) :
+def show_data_to_diary_user_choise(number,db_path=DB_PATH) :
     '''Функция возвращает записи из базы количество записей выбирает пользователь'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             show_query = "SELECT text_diary FROM personal_diary ORDER BY created_at DESC LIMIT ?"
             cursor.execute(show_query,(number,))

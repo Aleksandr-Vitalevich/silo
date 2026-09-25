@@ -1,5 +1,5 @@
 import streamlit as st
-from db_manager.work_with_calendar import get_calandar_tasks_by_date,update_task_status,add_calendar_task
+from db_manager.work_with_calendar import get_calandar_tasks_by_date,update_task_status,add_calendar_task,delete_data_to_calendar
 from datetime import date
 from time import sleep
 from utils.security import encrypt_text,decrypt_text
@@ -11,7 +11,7 @@ def operation_tab6() :
     st.header("Календарь - Заметки")
     selected_date_obj = st.date_input("Выберите день журнала",value=date.today())
     selected_date_str = str(selected_date_obj)
-    sub_tab_6_1,sub_tab_6_2 = st.tabs(["Заметки Анализ","Добавить новую заметку"])
+    sub_tab_6_1,sub_tab_6_2,sub_tab_6_3 = st.tabs(["Заметки Анализ","Добавить новую заметку","Удалить заметку"])
 
     with sub_tab_6_1 :
         st.subheader("Управление заметками")
@@ -22,7 +22,7 @@ def operation_tab6() :
         for task_id,enc_title,enc_desk,is_completed,priority in data_calendar :
             clean_title = decrypt_text(enc_title,password)
             clean_desk = decrypt_text(enc_desk,password)
-            display_label = f"Приоритет [{priority}] Заметка {clean_title}"
+            display_label = f"Запись id {task_id} Приоритет [{priority}] Заметка {clean_title}"
             if clean_desk :
                 display_label += f"- ({clean_desk})"
             checkbox_value = True if is_completed == 1 else False
@@ -73,5 +73,16 @@ def operation_tab6() :
                             st.rerun()
                     except Exception :
                         st.error('Ошибка не удалось зашифровать или сохранить заметку')
-
+    with sub_tab_6_3 :
+        st.subheader("Меню удаления заметки")
+        user_input = st.number_input('Введите id записи для удаления',step=1,min_value=1,key="delete_calendar_tasks")
+        if st.button("Удалить запись",use_container_width=True,key="delete_calaendar_button_click") :
+            try :
+                delete_file = delete_data_to_calendar(user_input)
+                if delete_file == "success" :
+                    st.info(f"Удаление прошло успешно Запись с id = {user_input} удалена")
+                    sleep(1.5)
+                    st.rerun()
+            except Exception :
+                st.error('Ошибка при удалении записи')
 

@@ -9,10 +9,10 @@ from utils.input_cleaner import clean_inputs
 @db_logger
 @retry_on_lock
 @clean_inputs
-def add_user(login,password) :
+def add_user(login,password,db_path=DB_PATH) :
         '''Функция принимает два параметра логин и пароль и создает запись в бд'''
         try :
-            with sqlite3.connect(DB_PATH) as connection :
+            with sqlite3.connect(db_path) as connection :
                 cursor = connection.cursor()
                 cursor.execute("SELECT COUNT(*) FROM user")
                 if cursor.fetchone()[0] >= 1:
@@ -28,10 +28,10 @@ def add_user(login,password) :
 @db_logger
 @retry_on_lock
 @clean_inputs
-def check_user_in_db() :
+def check_user_in_db(db_path=DB_PATH) :
         '''Функция проверяет наличие пользователя в базе данных'''
         try :
-            with sqlite3.connect(DB_PATH) as connection :
+            with sqlite3.connect(db_path) as connection :
                 cursor = connection.cursor()
                 check_query = 'SELECT COUNT(*) FROM user'
                 cursor.execute(check_query)
@@ -43,10 +43,10 @@ def check_user_in_db() :
 @db_logger
 @retry_on_lock
 @clean_inputs
-def check_user_authorization(login,password) :
+def check_user_authorization(login,password,db_path=DB_PATH) :
         '''Функция принимает логин и пароль'''
         try :
-            with sqlite3.connect(DB_PATH) as connection :
+            with sqlite3.connect(db_path) as connection :
                     cursor = connection.cursor()
                     get_user_password = "SELECT user_password FROM user WHERE user_login = ?"
                     values_login = (login,)

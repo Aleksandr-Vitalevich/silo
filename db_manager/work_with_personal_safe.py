@@ -7,10 +7,10 @@ from utils.input_cleaner import clean_inputs
 @db_logger
 @retry_on_lock
 @clean_inputs
-def add_data(args) :
+def add_data(args,db_path=DB_PATH) :
     '''Функция принимает аргументы в виде словаря и записывает их в базу'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             get_values_place = ', '.join(['?'] * len(args))
             get_placeholders = ', '.join(args)
@@ -23,10 +23,10 @@ def add_data(args) :
 
 @db_logger
 @retry_on_lock
-def delete_data(id) :
+def delete_data(id,db_path=DB_PATH) :
     '''Функция принимает id записи и проводит удаление записи'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             delete_query = "DELETE FROM personal_safe WHERE id = ?"
             delete_value = (id,)
@@ -37,10 +37,10 @@ def delete_data(id) :
 
 @db_logger
 @retry_on_lock
-def show_data() :
+def show_data(db_path=DB_PATH) :
     '''Функция возвращает все записи из базы'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
                 cursor = connection.cursor()
                 show_query = "SELECT * FROM personal_safe"
                 cursor.execute(show_query)
@@ -51,10 +51,10 @@ def show_data() :
 
 @db_logger
 @retry_on_lock
-def update_data(id,args) :
+def update_data(id,args,db_path=DB_PATH) :
     '''Функция принимает id и параметры и устанавливает новое значение'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             get_values_place = ', '.join(['?'] * len(args))
             get_placeholders = ', '.join(args)
@@ -68,10 +68,10 @@ def update_data(id,args) :
 
 @db_logger
 @retry_on_lock
-def get_data_by_id(id) :
+def get_data_by_id(id,db_path=DB_PATH) :
     '''Функция возвращает запись'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
             value = (id,)
             get_query = "SELECT * FROM personal_safe WHERE id = ? "

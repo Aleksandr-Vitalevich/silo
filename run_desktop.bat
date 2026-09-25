@@ -30,14 +30,33 @@ timeout /t 2 > nul
 set "URL=http://localhost:9999"
 
 echo 🌐 Запуск изолированного окна приложения...
-:: Проверяем наличие Chrome в стандартных путях Windows
+:: 1. Проверяем Google Chrome (64-bit и 32-bit)
 if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" (
     echo 🚀 Запуск через Google Chrome...
     start "" "%ProgramFiles%\Google\Chrome\Application\chrome.exe" --app=%URL%
-) else if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" (
+    goto :end
+)
+if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" (
     echo 🚀 Запуск через Google Chrome (x86)...
     start "" "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" --app=%URL%
-) else (
-    echo ⚠️ Chrome не найден, открываем в системном браузере по умолчанию...
-    start %URL%
+    goto :end
 )
+
+:: 2. Проверяем Яндекс.Браузер (в общих программах и в папке пользователя AppData)
+if exist "%ProgramFiles%\Yandex\YandexBrowser\Application\browser.exe" (
+    echo 🚀 Запуск через Яндекс.Браузер (System)...
+    start "" "%ProgramFiles%\Yandex\YandexBrowser\Application\browser.exe" --app=%URL%
+    goto :end
+)
+if exist "%LOCALAPPDATA%\Yandex\YandexBrowser\Application\browser.exe" (
+    echo 🚀 Запуск через Яндекс.Браузер (User AppData)...
+    start "" "%LOCALAPPDATA%\Yandex\YandexBrowser\Application\browser.exe" --app=%URL%
+    goto :end
+)
+
+:: 3. Аварийный вариант: если ничего не найдено, открываем в браузере по умолчанию
+echo ⚠️ Специализированные браузеры не найдены, открываем в стандартном браузере...
+start %URL%
+
+:end
+echo 🎉 Система Silo Core успешно запущена!

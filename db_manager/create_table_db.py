@@ -5,10 +5,10 @@ from utils.retry import retry_on_lock
 
 @db_logger
 @retry_on_lock
-def create_table() :
+def create_table(db_path=DB_PATH) :
     '''Функция создания базы данных'''
     try :
-        with sqlite3.connect(DB_PATH) as connection :
+        with sqlite3.connect(db_path) as connection :
                 cursor = connection.cursor()
                 cursor.execute('''
                         CREATE TABLE IF NOT EXISTS user (
