@@ -44,6 +44,16 @@ def create_table(db_path=DB_PATH) :
                         priority TEXT DEFAULT "Medium",
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
                 ''')
+                cursor.execute('''
+                        CREATE TABLE IF NOT EXISTS map_tasks (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        description TEXT,
+                        latitude REAL, 
+                        longitude REAL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                ''')
                 return True
     except sqlite3.Error as e :
         raise e
