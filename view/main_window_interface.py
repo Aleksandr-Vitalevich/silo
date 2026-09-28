@@ -9,6 +9,7 @@ def main_interface() :
         user_choice = st.radio("Выбор Меню",["Выход",
                                              "Данные",
                                              "Дневник",
+                                             "Мои файлы",
                                              "Ассистент Silo",
                                              "Календарь и Заметки",
                                              "Карта"],
@@ -39,3 +40,7 @@ def main_interface() :
     elif user_choice == "Карта" :
         from view.tab_maps import operation_maps
         operation_maps()
+
+    elif user_choice == "Мои файлы" :
+        from view.files.files_interface import main_files_interface
+        main_files_interface()

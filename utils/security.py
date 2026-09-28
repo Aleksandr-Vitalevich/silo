@@ -62,3 +62,25 @@ def decrypt_text(cipher_text : str,master_password : str) -> str :
         return f.decrypt(cipher_text.encode()).decode()
     except Exception as e:
         raise e
+
+def encrypt_file(file_bytes: bytes, master_password: str) -> bytes:
+    '''Функция шифрует бинарные данные файла'''
+    if not file_bytes:
+        return b""
+    try:
+        key = generate_crypto_key(master_password)
+        f = Fernet(key)
+        return f.encrypt(file_bytes)
+    except Exception as e:
+        raise e
+
+def decrypt_file(encrypted_bytes: bytes, master_password: str) -> bytes:
+    '''Расшифровывает бинарные данные файла обратно в чистые байты'''
+    if not encrypted_bytes:
+        return b""
+    try:
+        key = generate_crypto_key(master_password)
+        f = Fernet(key)
+        return f.decrypt(encrypted_bytes)
+    except Exception as e:
+        raise e

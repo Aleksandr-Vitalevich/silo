@@ -54,6 +54,14 @@ def create_table(db_path=DB_PATH) :
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                         )
                 ''')
+                cursor.execute('''
+                        CREATE TABLE IF NOT EXISTS user_files (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        file_name TEXT NOT NULL,
+                        file_content BLOB NOT NULL,
+                        uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )
+                ''')
                 return True
     except sqlite3.Error as e :
         raise e

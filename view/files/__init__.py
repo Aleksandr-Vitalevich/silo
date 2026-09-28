@@ -1,0 +1,3 @@
+from view.files.files_tab1_interface import operation_tab1
+from view.files.files_tab2_interface import operation_tab2
+from view.files.files_interface import main_files_interface

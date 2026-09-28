@@ -5,3 +5,4 @@ from db_manager.work_with_personal_diary import add_data_to_diary,show_data_to_d
 from db_manager.work_with_personal_safe import add_data,show_data,delete_data,update_data,get_data_by_id
 from db_manager.work_with_calendar import get_calandar_tasks_by_date,update_task_status,add_calendar_task,delete_data_to_calendar
 from db_manager.work_with_personal_map import get_all_points,add_new_point,delete_point,update_point
+from db_manager.work_with_personal_files import add_file,delete_file,get_all_files,get_file
