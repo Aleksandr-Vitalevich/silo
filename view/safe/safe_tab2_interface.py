@@ -47,10 +47,10 @@ def operation_tab2() :
                 st.warning(f'Запись с id {user_input} не найдена в базе')
             else :
                 rec_id,rec_name,rec_login,rec_password,rec_site,rec_token,rec_other= change_data
-                dec_password = decrypt_text(pwd,master_pwd) if pwd else ""
-                dec_site = decrypt_text(site,master_pwd) if site else ""
-                dec_token = decrypt_text(token,master_pwd) if token else ""
-                dec_other = decrypt_text(info,master_pwd) if info else ""
+                dec_password = decrypt_text(rec_password,master_pwd) if rec_password else ""
+                dec_site = decrypt_text(rec_site,master_pwd) if rec_site else ""
+                dec_token = decrypt_text(rec_token,master_pwd) if rec_token else ""
+                dec_other = decrypt_text(rec_other,master_pwd) if rec_other else ""
                 with st.form(key=f"edit_form_v{st.session_state.get('edit_form_version', 0)}"):
                     st.markdown(f"Редактирование сервиса: **{rec_name}**")
                     master_pwd = st.session_state.master_password_key
