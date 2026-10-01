@@ -11,7 +11,7 @@ def operation_tab6() :
     st.header("Календарь - Заметки")
     selected_date_obj = st.date_input("Выберите день журнала",value=date.today())
     selected_date_str = str(selected_date_obj)
-    sub_tab_6_1,sub_tab_6_2,sub_tab_6_3 = st.tabs(["Заметки Анализ","Добавить новую заметку","Удалить заметку"])
+    sub_tab_6_1,sub_tab_6_2,sub_tab_6_3 = st.tabs(["Заметки","Добавить новую заметку","Удалить заметку"])
 
     with sub_tab_6_1 :
         st.subheader("Управление заметками")
@@ -33,23 +33,6 @@ def operation_tab6() :
                 st.info(f'заметка {clean_title} выполнены')
                 sleep(1)
                 st.rerun()
-        st.markdown("---")
-        if st.button("Анализ заметок") :
-            ai_data = []
-            for _,enc_title,enc_desk,is_completed,priority in data_calendar :
-                title = decrypt_text(enc_title,password)
-                status_text = "Выполнено" if is_completed == 1 else "В процессе"
-                ai_data.append(f"- [{priority}] {title} (Статус : {status_text})")
-            tasks_analyze = "\n".join(ai_data)
-            prompt_calendar = (
-                f"Система, перед тобой список задач владельца крепости Silo на день {selected_date_str}. "
-                f"Оцени нагрузку, выдели критические заметки и дай краткие рекомендации по оптимизации времени. "
-                f"Отвечай строго на русском языке, лаконично. Вот расписание:\n\n{tasks_analyze}"
-                                )
-            with st.spinner("Анализ заметок") :
-                from utils.ai_manager import send_message_to_ai
-                ai_response = send_message_to_ai([{"role": "user", "content": prompt_calendar}])
-                st.info(ai_response)
     with sub_tab_6_2 :
         st.subheader("Меню добавления новой заметки")
         with st.form(key=f"new_task_form_v_{st.session_state.form_version}",clear_on_submit=True) :

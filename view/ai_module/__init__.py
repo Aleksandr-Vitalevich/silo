@@ -1,0 +1,3 @@
+from view.ai_module.ai_tab1_interface import operation_tab1
+from view.ai_module.ai_interface import main_ai_interface
+from view.ai_module.ai_tab2_interface import operation_tab2

@@ -4,6 +4,6 @@ from view.main_window_interface import main_interface
 from view.safe.safe_interface import main_safe_interface
 from view.diary.diary_interface import main_diary_interface
 from view.tab0_interface import operation_tab0
-from view.tab5_interface import operation_tab5
+from view.ai_module.ai_interface import main_ai_interface
 from view.tab6_interface import operation_tab6
 from view.tab_maps import operation_maps

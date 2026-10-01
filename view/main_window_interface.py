@@ -30,8 +30,8 @@ def main_interface() :
         main_diary_interface()
 
     elif user_choice == "Ассистент Silo":
-        from view.tab5_interface import operation_tab5
-        operation_tab5()
+        from view.ai_module.ai_interface import main_ai_interface
+        main_ai_interface()
 
     elif user_choice == "Календарь и Заметки":
         from view.tab6_interface import operation_tab6

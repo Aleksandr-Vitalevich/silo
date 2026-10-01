@@ -2,7 +2,7 @@ import streamlit as st
 from db_manager import show_data,delete_data,update_data,get_data_by_id
 import pandas as pd
 from time import sleep
-from utils.security import decrypt_text
+from utils.security import decrypt_text,encrypt_text
 def operation_tab2() :
     '''Функция отвечает за логику работу третьей вкладки'''
     st.subheader("Управление данными")
@@ -47,10 +47,13 @@ def operation_tab2() :
                 st.warning(f'Запись с id {user_input} не найдена в базе')
             else :
                 rec_id,rec_name,rec_login,rec_password,rec_site,rec_token,rec_other= change_data
-
+                rec_password = decrypt_text(pwd,master_pwd) if pwd else ""
+                rec_site = decrypt_text(site,master_pwd) if site else ""
+                rec_token = decrypt_text(token,master_pwd) if token else ""
+                rec_other = decrypt_text(info,master_pwd) if info else ""
                 with st.form(key=f"edit_form_v{st.session_state.get('edit_form_version', 0)}"):
                     st.markdown(f"Редактирование сервиса: **{rec_name}**")
-                    
+                    master_pwd = st.session_state.master_password_key
                     new_name = st.text_input("Название сервиса", value=rec_name)
                     new_login = st.text_input("Логин", value=rec_login if rec_login else "")
                     new_password = st.text_input("Пароль", value=rec_password if rec_password else "", type="password")
@@ -66,12 +69,12 @@ def operation_tab2() :
                             st.error('Это поле обязательно для заполнения')
                         else :
                             raw_dct = {
-                            "name_service" : new_name.strip(),
-                            "login_service" : new_login.strip(),
-                            "password_service" : new_password.strip(),
-                            "site_service" : new_site.strip(),
-                            "token_service" : new_token.strip(),
-                            "other_need_information_service" : new_info.strip()
+                            "name_service" : new_name,
+                            "login_service" : new_login,
+                            "password_service" : encrypt_text(new_password,master_pwd),
+                            "site_service" : encrypt_text(new_site,master_pwd),
+                            "token_service" : encrypt_text(new_token,master_pwd),
+                            "other_need_information_service" : encrypt_text(new_info,master_pwd)
                             }
                             dct = {key : value for key,value in raw_dct.items() if value != ""}
                             send = update_data(user_input,dct)
