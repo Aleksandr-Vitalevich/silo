@@ -47,19 +47,19 @@ def operation_tab2() :
                 st.warning(f'Запись с id {user_input} не найдена в базе')
             else :
                 rec_id,rec_name,rec_login,rec_password,rec_site,rec_token,rec_other= change_data
-                rec_password = decrypt_text(pwd,master_pwd) if pwd else ""
-                rec_site = decrypt_text(site,master_pwd) if site else ""
-                rec_token = decrypt_text(token,master_pwd) if token else ""
-                rec_other = decrypt_text(info,master_pwd) if info else ""
+                dec_password = decrypt_text(pwd,master_pwd) if pwd else ""
+                dec_site = decrypt_text(site,master_pwd) if site else ""
+                dec_token = decrypt_text(token,master_pwd) if token else ""
+                dec_other = decrypt_text(info,master_pwd) if info else ""
                 with st.form(key=f"edit_form_v{st.session_state.get('edit_form_version', 0)}"):
                     st.markdown(f"Редактирование сервиса: **{rec_name}**")
                     master_pwd = st.session_state.master_password_key
                     new_name = st.text_input("Название сервиса", value=rec_name)
                     new_login = st.text_input("Логин", value=rec_login if rec_login else "")
-                    new_password = st.text_input("Пароль", value=rec_password if rec_password else "", type="password")
-                    new_site = st.text_input("Ссылка", value=rec_site if rec_site else "")
-                    new_token = st.text_input("Токен", value=rec_token if rec_token else "")
-                    new_info = st.text_area("Доп. информация", value=rec_other if rec_other else "")
+                    new_password = st.text_input("Пароль", value=dec_password if dec_password else "", type="password")
+                    new_site = st.text_input("Ссылка", value=dec_site if dec_site else "")
+                    new_token = st.text_input("Токен", value=dec_token if dec_token else "")
+                    new_info = st.text_area("Доп. информация", value=dec_other if dec_other else "")
                     
                     submit_edit = st.form_submit_button("Сохранить изменения", use_container_width=True)
                 
