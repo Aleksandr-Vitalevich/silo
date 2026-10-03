@@ -49,13 +49,14 @@ def show_data_to_diary(db_path=DB_PATH) :
 
 @db_logger
 @retry_on_lock
-def show_data_to_diary_user_choise(number,db_path=DB_PATH) :
-    '''Функция возвращает записи из базы количество записей выбирает пользователь'''
+def show_data_to_diary_user_choise(*args,db_path=DB_PATH) :
+    '''Функция возвращает записи из базы за период'''
     try :
+        date1,date2 = args
         with sqlite3.connect(db_path) as connection :
             cursor = connection.cursor()
-            show_query = "SELECT text_diary FROM personal_diary ORDER BY created_at DESC LIMIT ?"
-            cursor.execute(show_query,(number,))
+            show_query = "SELECT text_diary FROM personal_diary WHERE created_at BETWEEN ? and ?"
+            cursor.execute(show_query,(date1,date2))
             res = cursor.fetchall()
         return res if res else []
     except sqlite3.Error as e :

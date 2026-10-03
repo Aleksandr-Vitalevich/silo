@@ -69,15 +69,14 @@ def operation_tab2() :
                             st.error('Это поле обязательно для заполнения')
                         else :
                             raw_dct = {
-                            "name_service" : new_name,
-                            "login_service" : new_login,
-                            "password_service" : encrypt_text(new_password,master_pwd),
-                            "site_service" : encrypt_text(new_site,master_pwd),
-                            "token_service" : encrypt_text(new_token,master_pwd),
-                            "other_need_information_service" : encrypt_text(new_info,master_pwd)
+                            "name_service": new_name.strip(),
+                            "login_service": new_login.strip(),
+                            "password_service": encrypt_text(new_password, master_pwd) if new_password else "",
+                            "site_service": encrypt_text(new_site, master_pwd) if new_site else "",
+                            "token_service": encrypt_text(new_token, master_pwd) if new_token else "",
+                            "other_need_information_service": encrypt_text(new_info, master_pwd) if new_info else ""
                             }
-                            dct = {key : value for key,value in raw_dct.items() if value != ""}
-                            send = update_data(user_input,dct)
+                            send = update_data(user_input,raw_dct)
                             if send == "success" :
                                 st.success('Данные успешно записаны')
                                 st.session_state.edit_form_version += 1
